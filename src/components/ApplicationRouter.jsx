@@ -13,9 +13,9 @@ import Registerpage from '../pages/Registerpage'
 import Createquiz from '../pages/Createquiz'
 import Takequiz from '../pages/Takequiz'
 
+//These are the paths for each of the pages
 
-
-export default function AppRouter(props) {
+export default function ApplicationRouter(props) {
   return (
     <>
       <Router>

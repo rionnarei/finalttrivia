@@ -7,7 +7,6 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react'
   import React from 'react'
-  import { FaMoon, FaSun } from 'react-icons/fa'
   import { useAuth } from '../contexts/AuthContext'
   import Navlink from './Navlink'
   
@@ -33,11 +32,12 @@ import {
 
           <Navlink to='/' name='Trivia' size='lg' />
 
-          <Spacer />
+          <Spacer /> 
           {!currentUser && <Navlink to='/login' name='Login' />}
           {!currentUser && <Navlink to='/register' name='Register' />}
           {currentUser && <Navlink to='/createquiz' name='Create Questions' />}
           {currentUser && <Navlink to='/takequiz' name='Take Quiz' />}
+
           {currentUser && (
             <Navlink
               to='/logout'
@@ -45,13 +45,11 @@ import {
               onClick={async e => {
                 e.preventDefault()
                 await logout()
-              }}
+              }} // if the current user is null then only login and register page shows up. If the user is logged in then the other pages show up. 
             />
+
+            
           )}
-
-
-         
-
 
         </HStack>
       </Box>

@@ -4,7 +4,6 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  HStack,
   Input,
   Stack,
 } from '@chakra-ui/react'
@@ -12,10 +11,10 @@ import {
 
 
 import React, { useState } from 'react'
-import { Card } from '../components/Card'
 import { Layout } from '../components/Layout'
 import { db } from '../utilities/init-firebase'
 import {collection, addDoc} from "firebase/firestore"
+
 
 export default function Createquiz() {
     
@@ -26,10 +25,11 @@ export default function Createquiz() {
   const [newOptionC, setOptionC] = useState('')
   const [newOptionD, setOptionD] = useState('')
   const [newCorrectanswer, setCorrectanswer] = useState('')
+  const [newcreatedUser,setCreateduser] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const quizCollectionRef = collection(db, "Quizzes" );
 
-
+ 
 
   return (
 
@@ -40,7 +40,6 @@ export default function Createquiz() {
         Create Questions
       </Heading>
 
-      <Card maxW='md' mx='auto' mt={4}>
 
         <chakra.form
           onSubmit={async e => {
@@ -49,7 +48,8 @@ export default function Createquiz() {
             
             setIsSubmitting(true)
 
-            await addDoc(quizCollectionRef, {title: newtitle, question: newdescription, A: newOptionA, B: newOptionB, C: newOptionC, D: newOptionD, correctAnswer: newCorrectanswer})
+            await addDoc(quizCollectionRef, {title: newtitle, question: newdescription, A: newOptionA, B: newOptionB, C: newOptionC, D: newOptionD, correctAnswer: newCorrectanswer, createdUser: newcreatedUser})
+
    
 
           }}
@@ -126,8 +126,18 @@ export default function Createquiz() {
               />
             </FormControl>
 
+            <FormControl id='Created By'>
+              <FormLabel>Created By</FormLabel>
+              <Input
+                name='Created By'
+                type='text'
+                value={newcreatedUser}
+                required
+                onChange={e => setCreateduser(e.target.value)}
+              />                                                  
+            </FormControl>
 
-           
+
             <Button
               type='submit'
               colorScheme='telegram'
@@ -145,8 +155,6 @@ export default function Createquiz() {
 
         </chakra.form>
 
-
-      </Card>
 
       
     </Layout>

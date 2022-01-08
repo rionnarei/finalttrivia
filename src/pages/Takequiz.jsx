@@ -7,7 +7,7 @@ import {
   import React, { useEffect, useState } from 'react'
   import { Layout } from '../components/Layout'
   import { db } from '../utilities/init-firebase'
-  import {collection, getDoc, addDoc, documentId, getDocs} from "firebase/firestore"
+  import {collection, getDocs} from "firebase/firestore"
 
 
 
@@ -16,15 +16,15 @@ import {
   export default function Takequiz() {
 
     const [questions, setQuestions] = useState([])
-    const quizCollectionRef = collection(db, "Quizzes" );
+    const quizCollectionRef = collection(db, "Quizzes" ); //setting up the questionCollection variable
     const toast = useToast()
-    const [value, setValue] = React.useState('1')
+  
 
     useEffect(() => {
 
         const getQuestions = async () => {
-            const data = await getDocs(quizCollectionRef);
-            setQuestions(data.docs.map((doc) => ({ ...doc.data(), id: doc.id})));
+            const data = await getDocs(quizCollectionRef); //returns and stores all documents in the collection
+            setQuestions(data.docs.map((doc) => ({ ...doc.data(), id: doc.id}))); //Looping through the documents in the collection, and setting the setQuestions array into an array of the documetn data and the id of each document
 
         };
 
@@ -41,13 +41,14 @@ import {
 
       <div className="Container">
           
-          {questions.map((question) => {
+          {questions.map((question) => { //Going through the questions array and displaying them
 
            const A = [question.A] 
            const B = [question.B]
            const C = [question.C]
            const D = [question.D]
            const correctAnswer = [question.correctAnswer]
+           const createdUser = [question.createdUser]
 
           return (
 
@@ -58,6 +59,7 @@ import {
             <h2 className = 'text-3xl'>
                 Q: {question.question} 
             </h2>
+            <h3 className = 'text-lg'> Created By: {createdUser} </h3>
             <br></br>
             
             <Checkbox size='lg' colorScheme='orange'  >A: {A} </Checkbox>

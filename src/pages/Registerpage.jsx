@@ -1,6 +1,5 @@
 import {
   Button,
-  Center,
   chakra,
   FormControl,
   FormLabel,
@@ -12,8 +11,6 @@ import {
 import React, { useEffect, useRef, useState } from 'react'
 import { FaGoogle } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
-import { Card } from '../components/Card'
-import DividerWithText from '../components/DividerWithText'
 import { Layout } from '../components/Layout'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -38,7 +35,7 @@ export default function Registerpage() {
       <Heading textAlign='center' my={12}>
         Register
       </Heading>
-      <Card maxW='md' mx='auto' mt={4}>
+      
 
         <chakra.form
           onSubmit={async e => {
@@ -83,7 +80,6 @@ export default function Registerpage() {
                 onChange={e => setEmail(e.target.value)}
               />
             </FormControl>
-
             
             <FormControl id='password'>
               <FormLabel>Password</FormLabel>
@@ -111,7 +107,7 @@ export default function Registerpage() {
           </Stack>
         </chakra.form>
         
-        <DividerWithText my={6}>OR</DividerWithText>
+        <br></br>
 
         <Button
           variant='outline'
@@ -128,7 +124,7 @@ export default function Registerpage() {
         </Button>
 
 
-      </Card>
+      
     </Layout>
   )
 }

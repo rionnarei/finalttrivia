@@ -4,23 +4,21 @@ import {
     FormControl,
     FormLabel,
     Heading,
-    HStack,
     Input,
     Stack,
     useToast,
   } from '@chakra-ui/react'
+
   import React, { useState } from 'react'
   import { FaGoogle } from 'react-icons/fa'
-  import { Link, useHistory, useLocation } from 'react-router-dom'
-  import { Card } from '../components/Card'
-  import DividerWithText from '../components/DividerWithText'
+  import {useHistory, useLocation } from 'react-router-dom'
   import { Layout } from '../components/Layout'
   import { useAuth } from '../contexts/AuthContext'
   import useMounted from '../hooks/useMounted'
   
   export default function Loginpage() {
 
-    const history = useHistory()
+    const history = useHistory() // This hook allows user to return to the previous page
     const { signInWithGoogle, login } = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -37,13 +35,20 @@ import {
   
     return (
       <Layout>
+
         <Heading textAlign='center' my={12}>
           Login
         </Heading>
-        <Card maxW='md' mx='auto' mt={4}>
-          <chakra.form
-            onSubmit={async e => {
+
+        
+
+          <chakra.form //Form styling used by Chakra UI
+            onSubmit={async e => { //onSubmit event, upon form submission the events inside it begin
+
+               // The login logic is over here
+
               e.preventDefault()
+
               if (!email || !password) {
                 toast({
                   description: 'Credentials not valid.',
@@ -51,9 +56,10 @@ import {
                   duration: 9000,
                   isClosable: true,
                 })
+
                 return
               }
-              // your login logic here
+
               setIsSubmitting(true)
               login(email, password)
                 .then(res => {
@@ -72,10 +78,10 @@ import {
                   mounted.current && setIsSubmitting(false)
                 })
             }}
-          >
+          > 
             <Stack spacing='6'>
-              <FormControl id='email'>
-                <FormLabel>Email address</FormLabel>
+              <FormControl id='email'> 
+                <FormLabel>Email address</FormLabel> 
                 <Input
                   name='email'
                   type='email'
@@ -109,8 +115,7 @@ import {
               </Button>
             </Stack>
           </chakra.form>
-          
-          <DividerWithText my={6}>OR</DividerWithText>
+          <br></br>
           <Button
             variant='outline'
             isFullWidth
@@ -127,7 +132,7 @@ import {
           >
             Sign in with Google
           </Button>
-        </Card>
+        
       </Layout>
     )
   }
